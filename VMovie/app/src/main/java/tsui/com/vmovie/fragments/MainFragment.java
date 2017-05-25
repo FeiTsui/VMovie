@@ -125,6 +125,7 @@ public class MainFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onError(Exception e) {
         e.printStackTrace();
     }
+
     public String getMovieUrl() {
         return String.format(Locale.getDefault(), "http://app.vmoiver.com/apiv3/post/getPostByTab?p=%d", page);
     }

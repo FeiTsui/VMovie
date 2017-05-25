@@ -1,16 +1,19 @@
 package tsui.com.vmovie.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tsui.com.vmovie.ChannelDetails;
 import tsui.com.vmovie.R;
 import tsui.com.vmovie.beans.ChannelGrid;
 import tsui.com.vmovie.utIls.CommAdapter;
@@ -47,6 +50,20 @@ public class ChannelFragment extends Fragment {
         NetworkFactory.get(this);
 
 //        new NetworkUtil<ChannelGrid>(this).execute(path);
+
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                ChannelGrid.ChannelBean bean = (ChannelGrid.ChannelBean) adapter.getItem(position);
+                String cateid = bean.getCateid();
+                String catename = bean.getCatename();
+                intent.putExtra("cateid", cateid);
+                intent.putExtra("catename", catename);
+                intent.setClass(getActivity(), ChannelDetails.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Url("http://app.vmoiver.com/apiv3/cate/getList")
